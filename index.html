@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> CODEX AI - Professional AI Workflow Platform</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <div class="background-elements">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="glow glow-3"></div>
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+    </div>
+
+    <div class="snow"></div>
+
+    <nav class="navbar">
+      <div class="brand">
+        <i class="fas fa-robot brand-mark"></i>
+        <div>
+          <p class="brand-label">CODEX</p>
+          <p class="brand-sub">AI</p>
+        </div>
+      </div>
+
+      <div class="navbar-right">
+        <ul class="nav-links">
+          <li><a href="#" data-section="deploy" title="Deploy Models"><i class="fas fa-rocket"></i> Deploy</a></li>
+          <li><a href="#" data-section="plugins" title="Browse Plugins"><i class="fas fa-puzzle-piece"></i> Plugins</a></li>
+          <li><a href="#" data-section="support" title="Get Support"><i class="fas fa-headset"></i> Support</a></li>
+          <li><a href="https://github.com/DEV-CODEXAI/CODEX-AI-V2" target="_blank" rel="noreferrer" title="GitHub Repository"><i class="fab fa-github"></i> Repo</a></li>
+          <li><a href="#" data-section="suggest" title="Suggest Features"><i class="fas fa-lightbulb"></i> Suggest</a></li>
+        </ul>
+
+        <div class="sidebar-snow"></div>
+
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <span class="theme-icon" id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <!-- Homepage -->
+      <section id="home" class="section active">
+        <div class="hero-section">
+          <div class="hero-copy">
+            <h1>CODEX AI</h1>
+            <p class="tagline">Next-gen interface for powerful AI workflows</p>
+          </div>
+        </div>
+
+        <div class="description-section">
+          <p></p>
+        </div>
+
+        <div class="cards-section">
+          <div class="card" data-section="deploy">
+            <div class="card-icon"><i class="fas fa-rocket"></i></div>
+            <h3>Deploy</h3>
+            <p>Launch your AI models with enterprise-grade infrastructure</p>
+          </div>
+          <div class="card" data-section="plugins">
+            <div class="card-icon"><i class="fas fa-puzzle-piece"></i></div>
+            <h3>Plugins</h3>
+            <p>Extend capabilities with powerful integrations</p>
+          </div>
+          <div class="card" data-section="support">
+            <div class="card-icon"><i class="fas fa-headset"></i></div>
+            <h3>Support</h3>
+            <p>24/7 community support and assistance</p>
+          </div>
+          <div class="card" data-section="tools">
+            <div class="card-icon"><i class="fas fa-wrench"></i></div>
+            <h3>Tools</h3>
+            <p>Explore developer tools and automation helpers for faster workflows</p>
+          </div>
+          <div class="card" data-section="apis">
+            <div class="card-icon"><i class="fas fa-network-wired"></i></div>
+            <h3>APIs</h3>
+            <p>View API integrations, endpoints, and docs for connected services</p>
+          </div>
+          <div class="card" data-section="repo">
+            <div class="card-icon"><i class="fab fa-github"></i></div>
+            <h3>Repository</h3>
+            <p>Access source code and documentation</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="modal-overlay" class="modal-overlay">
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <div id="modal-body"></div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-links">
+        <a href="#" data-section="privacy">Privacy Policy</a>
+        <a href="#" data-section="license">License</a>
+        <a href="#" data-section="terms">Terms of Service</a>
+      </div>
+      <p class="footer-copy">© 2026 All Rights Reserved</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
