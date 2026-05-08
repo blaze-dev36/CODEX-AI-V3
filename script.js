@@ -21,24 +21,28 @@ themeToggle.addEventListener('click', () => {
 const savedTheme = localStorage.getItem('codexTheme') || 'dark';
 applyTheme(savedTheme);
 
+const heroSection = document.querySelector('.hero-section');
+if (heroSection) {
+  heroSection.addEventListener('mousedown', (e) => {
+    if (e.detail > 1) e.preventDefault();
+  });
+  heroSection.addEventListener('selectstart', (e) => {
+    e.preventDefault();
+  });
+}
+
 // Hamburger menu toggle
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.querySelector('.nav-links');
 hamburger.addEventListener('click', () => {
   const isOpen = navLinks.classList.toggle('mobile-open');
   hamburger.setAttribute('aria-expanded', isOpen);
-  if (isOpen) {
-    createSidebarSnow();
-  } else {
-    clearSidebarSnow();
-  }
 });
 
 document.addEventListener('click', (event) => {
   if (!event.target.closest('.navbar') && navLinks.classList.contains('mobile-open')) {
     navLinks.classList.remove('mobile-open');
     hamburger.setAttribute('aria-expanded', 'false');
-    clearSidebarSnow();
   }
 });
 
@@ -84,7 +88,7 @@ const plugins = [
   }
 ];
 
-const lockedSections = ['tools', 'apis'];
+const lockedSections = ['tools', 'apis','plugins']; // Sections that are currently locked and show the notice
 
 function getModalLockNote(section) {
   if (!lockedSections.includes(section)) return '';
@@ -92,7 +96,7 @@ function getModalLockNote(section) {
     <div class="modal-lock-notice">
       <i class="fas fa-lock"></i>
       <strong>Note:</strong> This section is currently locked by the developer and may be unavailable.
-      <p>This site was locked by the developer, unable to access the full content.</p>
+
     </div>
   `;
 }
@@ -182,7 +186,7 @@ function openModal(section) {
             <i class="fab fa-whatsapp"></i>
             <span>WhatsApp<br/>Channel</span>
           </a>
-          <a href="https://wa.me/2349035671349" class="support-link" target="_blank">
+          <a href="https://wa.me/2347019135989" class="support-link" target="_blank">
             <i class="fab fa-whatsapp"></i>
             <span>WhatsApp<br/>Direct Message</span>
           </a>
@@ -190,7 +194,7 @@ function openModal(section) {
             <i class="fab fa-telegram"></i>
             <span>Telegram<br/>Group</span>
           </a>
-          <a href="https://t.me/" class="support-link" target="_blank">
+          <a href="https://t.me/CODEX_AIV3" class="support-link" target="_blank">
             <i class="fab fa-telegram"></i>
             <span>Telegram<br/>Channel</span>
           </a>
@@ -217,7 +221,7 @@ function openModal(section) {
         <h2><i class="fab fa-github"></i> GitHub Repository</h2>
         <p>Access the official CODEX AI source code, documentation, and contribute to the project:</p>
         <p style="margin-top: 2rem; text-align: center;">
-          <a href="https://github.com/DEV-CODEXAI/CODEX-AI-V2" target="_blank" rel="noreferrer" class="copy-btn" style="display: inline-block; width: auto; padding: 1rem 2rem;">
+          <a href="https://github.com/CODEX-SPACEX/CODEX-AI/tree/main" target="_blank" rel="noreferrer" class="copy-btn" style="display: inline-block; width: auto; padding: 1rem 2rem;">
             <i class="fab fa-github"></i> Visit Repository on GitHub
           </a>
         </p>
@@ -355,7 +359,7 @@ document.addEventListener('submit', (e) => {
     const textarea = e.target.querySelector('textarea');
     const text = textarea.value.trim();
     if (text) {
-      const url = `https://wa.me/2349035671349?text=${encodeURIComponent('Suggestion: ' + text)}`;
+      const url = `https://wa.me/2347019135989?text=${encodeURIComponent('Suggestion: ' + text)}`;
       window.open(url, '_blank');
       closeModal();
     } else {
@@ -364,61 +368,51 @@ document.addEventListener('submit', (e) => {
   }
 });
 
-function createSnowflakes(count = 50) {
+// 1. Add 'isClick' parameter
+function createSnowflakes(count = 50, isInitialLoad = false) {
   const snowContainer = document.querySelector('.snow');
   if (!snowContainer) return;
+  
   for (let i = 0; i < count; i++) {
     const snowflake = document.createElement('div');
     const isRealFlake = Math.random() < 0.25;
     snowflake.classList.add('snowflake');
     if (isRealFlake) snowflake.classList.add('flake');
+    
     snowflake.style.left = Math.random() * 100 + '%';
     const size = isRealFlake ? Math.random() * 8 + 8 : Math.random() * 5 + 3;
     snowflake.style.width = size + 'px';
     snowflake.style.height = size + 'px';
     snowflake.style.animationDuration = Math.random() * 10 + 10 + 's';
-    snowflake.style.animationDelay = Math.random() * 10 + 's';
+
+    if (isInitialLoad) {
+      // ONLY the first 70 flakes on refresh appear mid-screen
+      snowflake.style.animationDelay = (Math.random() * -20) + 's';
+    } else {
+      // ALL other snow (clicks, intervals) starts at the TOP and falls immediately
+      snowflake.style.animationDelay = '0s';
+    }
+
     snowContainer.appendChild(snowflake);
+    snowflake.addEventListener('animationend', () => snowflake.remove());
   }
 }
 
-window.addEventListener('load', () => {
-  const snowContainer = document.querySelector('.snow');
-  if (snowContainer && snowContainer.parentNode !== document.body) {
-    document.body.appendChild(snowContainer);
-  }
-  createSnowflakes(70);
-  setInterval(() => createSnowflakes(10), 3000);
-});
+// 1. Initial load: "true" makes them appear everywhere immediately
+createSnowflakes(70, true); 
 
+// 2. Continuous snow: starts from the top every 3 seconds
+setInterval(() => createSnowflakes(10), 3000);
+
+// 3. Click/Double-click: starts from the top immediately
 document.addEventListener('click', (event) => {
   const clickedOutside = !event.target.closest('.navbar') && !event.target.closest('.card') && !event.target.closest('.modal-content');
   if (clickedOutside) {
-    createSnowflakes(12);
+    createSnowflakes(12); // No second argument means it starts from the top
   }
 });
 
-function createSidebarSnow(count = 20) {
-  const sidebarSnow = document.querySelector('.sidebar-snow');
-  if (!sidebarSnow) return;
-  // Clear existing
-  sidebarSnow.innerHTML = '';
-  for (let i = 0; i < count; i++) {
-    const snowflake = document.createElement('div');
-    const isRealFlake = Math.random() < 0.25;
-    snowflake.classList.add('snowflake');
-    if (isRealFlake) snowflake.classList.add('flake');
-    snowflake.style.left = Math.random() * 100 + '%';
-    const size = isRealFlake ? Math.random() * 8 + 8 : Math.random() * 5 + 3;
-    snowflake.style.width = size + 'px';
-    snowflake.style.height = size + 'px';
-    snowflake.style.animationDuration = Math.random() * 5 + 5 + 's';
-    snowflake.style.animationDelay = Math.random() * 5 + 's';
-    sidebarSnow.appendChild(snowflake);
-  }
-}
-
-function clearSidebarSnow() {
-  const sidebarSnow = document.querySelector('.sidebar-snow');
-  if (sidebarSnow) sidebarSnow.innerHTML = '';
-}
+// Since you mentioned double-click specifically:
+document.addEventListener('dblclick', (event) => {
+    createSnowflakes(30); // Extra heavy burst from the top on double-click
+});
