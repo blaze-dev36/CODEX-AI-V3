@@ -36,12 +36,14 @@ const hamburger = document.getElementById('hamburger');
 const navLinks = document.querySelector('.nav-links');
 hamburger.addEventListener('click', () => {
   const isOpen = navLinks.classList.toggle('mobile-open');
+  hamburger.classList.toggle('open');
   hamburger.setAttribute('aria-expanded', isOpen);
 });
 
 document.addEventListener('click', (event) => {
   if (!event.target.closest('.navbar') && navLinks.classList.contains('mobile-open')) {
     navLinks.classList.remove('mobile-open');
+    hamburger.classList.remove('open');
     hamburger.setAttribute('aria-expanded', 'false');
   }
 });
@@ -50,45 +52,25 @@ document.addEventListener('click', (event) => {
 // EASY PLUGIN MANAGEMENT SYSTEM
 // Add or remove plugins here easily!
 // ============================================
-const plugins = [
-  {
-    name: 'Data Processor',
-    description: 'Process and clean your data automatically',
-    installCmd: 'npm install @codex/data-processor' // Editable command text
-  },
-  {
-    name: 'Image Analyzer',
-    description: 'Analyze images using advanced AI algorithms',
-    installCmd: 'npm install @codex/image-analyzer' // Editable command text
-  },
-  {
-    name: 'Text Generator',
-    description: 'Generate high-quality text content',
-    installCmd: 'npm install @codex/text-generator' // Editable command text
-  },
-  {
-    name: 'API Connector',
-    description: 'Connect to various APIs effortlessly',
-    installCmd: 'npm install @codex/api-connector' // Editable command text
-  },
-  {
-    name: 'ML Pipeline',
-    description: 'Build and manage machine learning pipelines',
-    installCmd: 'npm install @codex/ml-pipeline' // Editable command text
-  },
-  {
-    name: 'Data Visualizer',
-    description: 'Create beautiful data visualizations',
-    installCmd: 'npm install @codex/data-viz' // Editable command text
-  },
-  {
-    name: 'Jokes',
-    description: 'Create humorous content',
-    installCmd: 'npm install @codex/jokes' // Editable command text
-  }
+function generatePluginsGrid() {
+  return plugins.map(plugin => `
+    <div class="plugin-card">
+      <h4>${plugin.name}</h4>
+      <p>${plugin.description || 'No description'}</p>
+      <p>Created by: ${plugin.creator || plugin.creation || 'Unknown'}</p>
+      <pre class="plugin-command">${plugin.link || plugin.installCmd || 'No link'}</pre>
+      <button class="copy-btn" onclick="copyToClipboard(this, '${plugin.link || plugin.installCmd || ''}')">
+        <i class="fas fa-copy"></i> Copy Link
+      </button>
+    </div>
+  `).join('');
+}
+
+let plugins = [
+    
 ];
 
-const lockedSections = ['tools', 'apis','plugins']; // Sections that are currently locked and show the notice
+const lockedSections = ['tools', 'apis',]; // Sections that are currently locked and show the notice
 
 function getModalLockNote(section) {
   if (!lockedSections.includes(section)) return '';
@@ -106,18 +88,6 @@ const modalOverlay = document.getElementById('modal-overlay');
 const modalBody = document.getElementById('modal-body');
 const modalClose = document.querySelector('.modal-close');
 
-function generatePluginsGrid() {
-  return plugins.map(plugin => `
-    <div class="plugin-card">
-      <h4>${plugin.name}</h4>
-      <p>${plugin.description}</p>
-      <pre class="plugin-command">${plugin.installCmd}</pre>
-      <button class="copy-btn" onclick="copyToClipboard(this, '${plugin.installCmd}')">
-        <i class="fas fa-copy"></i> Copy Install Command
-      </button>
-    </div>
-  `).join('');
-}
 
 function openModal(section) {
   let content = '';
@@ -144,9 +114,23 @@ function openModal(section) {
       content = `
         <h2><i class="fas fa-puzzle-piece"></i> Available Plugins</h2>
         <p>Extend CODEX AI with powerful integrations. Copy the command text below and paste it wherever you want to install:</p>
+        <div>
+        
+
+        </div>
         <div class="plugins-grid">
           ${generatePluginsGrid()}
         </div>
+        <button class="create-plugin-btn" onclick="window.open('https://github.com/CODEX-SPACEX/CODEX-AI', '_blank')">
+          <i class="fas fa-plus"></i> Create New Plugin
+        </button>
+        <h2><i class="fas fa-lightbulb"></i> Suggest Plugins</h2>
+        <p>Tell us what plugins you'd like to see next:</p>
+        <p>Quick suggestions: <a href="#" onclick="setSuggestion('Add more plugins')">Add more plugins</a> | <a href="#" onclick="setSuggestion('Add tutorials')">Add tutorials</a></p>
+        <form class="suggest-form">
+          <textarea name="suggestion" placeholder="Describe your suggestion... (max 1000 chars)" maxlength="1000" required></textarea>
+          <button type="submit"><i class="fas fa-paper-plane"></i> Submit Suggestion</button>
+        </form>
       `;
       break;
     case 'tools':
@@ -208,8 +192,8 @@ function openModal(section) {
     case 'suggest':
       content = `
         <h2><i class="fas fa-lightbulb"></i> Suggest Features</h2>
-        <p>Help us improve CODEX AI by sharing your ideas. Tell us what features or plugins you'd like to see:</p>
-        <p>Quick suggestions: <a href="#" onclick="setSuggestion('Add more plugins')">Add more plugins</a> | <a href="#" onclick="setSuggestion('Improve UI')">Improve UI</a> | <a href="#" onclick="setSuggestion('Add tutorials')">Add tutorials</a></p>
+        <p>Help us improve CODEX AI by sharing your ideas. Tell us what features you'd like to see:</p>
+        <p>Quick suggestions: <a href="#" onclick="setSuggestion('Improve UI')">Improve UI</a> | <a href="#" onclick="setSuggestion('Add tutorials')">Add tutorials</a></p>
         <form class="suggest-form">
           <textarea name="suggestion" placeholder="Describe your suggestion... (max 1000 chars)" maxlength="1000" required></textarea>
           <button type="submit"><i class="fas fa-paper-plane"></i> Submit Suggestion</button>
@@ -329,6 +313,7 @@ document.addEventListener('click', (e) => {
 
     if (navLinks.classList.contains('mobile-open')) {
       navLinks.classList.remove('mobile-open');
+      hamburger.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
       clearSidebarSnow();
     }
@@ -340,7 +325,7 @@ function copyToClipboard(button, text) {
   navigator.clipboard.writeText(text).then(() => {
     const originalHTML = button.innerHTML;
     button.innerHTML = '<i class="fas fa-check"></i> Copied!';
-    alert('Command copied to clipboard!');
+    alert('Copied to clipboard!');
     setTimeout(() => {
       button.innerHTML = originalHTML;
     }, 2000);
@@ -397,6 +382,22 @@ function createSnowflakes(count = 50, isInitialLoad = false) {
     snowflake.addEventListener('animationend', () => snowflake.remove());
   }
 }
+
+// Load plugins from JSON
+async function loadPlugins() {
+  try {
+    const response = await fetch('plugins.json');
+    if (response.ok) {
+      const data = await response.json();
+      plugins = data;
+    }
+  } catch (e) {
+    console.log('Using default plugins');
+  }
+}
+
+// Load plugins on page load
+document.addEventListener('DOMContentLoaded', loadPlugins);
 
 // 1. Initial load: "true" makes them appear everywhere immediately
 createSnowflakes(70, true); 

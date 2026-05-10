@@ -1,0 +1,43 @@
+name: Update Plugins on PR Merge
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  update-plugins:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+
+    - name: Update plugins.json
+      run: |
+        # Assume the submitted JSON file is plugin-data.json
+        if [ -f plugin-data.json ]; then
+          # Create plugins.json if it doesn't exist
+          if [ ! -f plugins.json ]; then
+            echo "[]" > plugins.json
+          fi
+          # Append the new plugin data
+          jq -s '.[0] + [.[1]]' plugins.json plugin-data.json > temp.json
+          mv temp.json plugins.json
+          # Remove the submitted file
+          rm plugin-data.json
+        fi
+
+    - name: Commit and push changes
+      run: |
+        if git diff --quiet; then
+          echo "No changes to commit"
+        else
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add plugins.json
+          git commit -m "Add new plugin from PR #${{ github.event.pull_request.number }}"
+          git push
+        fi
