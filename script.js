@@ -362,8 +362,6 @@ document.addEventListener('click', (e) => {
   if (!createBtn) return;
 
   e.preventDefault();
-  const githubLoginUrl = '/auth/github';
-  window.location.href = githubLoginUrl;
 });
 
 // Handle card clicks only (skip mobile nav links)
@@ -420,6 +418,12 @@ function createSnowflakes(count = 50, isInitialLoad = false) {
   const snowContainer = document.querySelector('.snow');
   if (!snowContainer) return;
   
+  // Reduce snowflake count on mobile for better performance
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile && !isInitialLoad) {
+    count = Math.ceil(count * 0.3); // 30% of normal on mobile
+  }
+  
   for (let i = 0; i < count; i++) {
     const snowflake = document.createElement('div');
     const isRealFlake = Math.random() < 0.25;
@@ -446,20 +450,35 @@ function createSnowflakes(count = 50, isInitialLoad = false) {
 }
 
 // 1. Initial load: "true" makes them appear everywhere immediately
-createSnowflakes(70, true); 
+const initialFlakeCount = window.innerWidth <= 768 ? 30 : 70; // Reduce initial flakes on mobile
+createSnowflakes(initialFlakeCount, true); 
 
-// 2. Continuous snow: starts from the top every 3 seconds
-setInterval(() => createSnowflakes(10), 3000);
+// 2. Continuous snow: starts from the top every 3 seconds (disabled on mobile)
+const snowInterval = setInterval(() => {
+  if (window.innerWidth > 768) {
+    createSnowflakes(10);
+  } else {
+    createSnowflakes(3); // Much fewer on mobile
+  }
+}, 3000);
 
 // 3. Click/Double-click: starts from the top immediately
 document.addEventListener('click', (event) => {
   const clickedOutside = !event.target.closest('.navbar') && !event.target.closest('.card') && !event.target.closest('.modal-content');
   if (clickedOutside) {
-    createSnowflakes(12); // No second argument means it starts from the top
+    if (window.innerWidth > 768) {
+      createSnowflakes(12); // Desktop: normal burst
+    } else {
+      createSnowflakes(4); // Mobile: reduced burst
+    }
   }
 });
 
 // Since you mentioned double-click specifically:
 document.addEventListener('dblclick', (event) => {
-    createSnowflakes(30); // Extra heavy burst from the top on double-click
+  if (window.innerWidth > 768) {
+    createSnowflakes(30); // Desktop: heavy burst from the top on double-click
+  } else {
+    createSnowflakes(8); // Mobile: reduced burst
+  }
 });
