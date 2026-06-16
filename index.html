@@ -1,325 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODEX AI - Advanced Bot Platform</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> CODEX AI </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="shortcut icon" href="favicon.svg" />
 </head>
 <body>
-    <!-- Snow container -->
-    <div class="snowflakes" id="snowflakes"></div>
+  <div class="page-shell">
+    <div class="background-elements">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="glow glow-3"></div>
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+    </div>
 
-    <!-- Navigation Bar -->
+    <div class="snow"></div>
+
     <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-logo">
-                <span class="logo-text">CODEX AI</span>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#deploy" class="nav-link" data-modal="deploy-modal">Deploy</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#plugin" class="nav-link" data-modal="plugin-modal">Plugin</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#suggest" class="nav-link" data-modal="suggest-modal">Suggest</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#repo" class="nav-link" data-modal="repo-modal">Repo</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#support" class="nav-link" data-modal="support-modal">Support</a>
-                </li>
-                <li class="nav-item theme-toggle-item">
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <circle cx="12" cy="12" r="5"></circle>
-                            <line x1="12" y1="1" x2="12" y2="3"></line>
-                            <line x1="12" y1="21" x2="12" y2="23"></line>
-                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                            <line x1="1" y1="12" x2="3" y2="12"></line>
-                            <line x1="21" y1="12" x2="23" y2="12"></line>
-                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                        </svg>
-                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                        </svg>
-                    </button>
-                </li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+      <div class="brand">
+        <i class="fas fa-robot brand-mark"></i>
+        <div>
+          <p class="brand-label">CODEX</p>
+          <p class="brand-sub">AI</p>
         </div>
+      </div>
+
+      <div class="navbar-right">
+        <ul class="nav-links">
+          <li><a href="#deploy" data-section="deploy" title="Deploy Models"><i class="fas fa-rocket"></i> Deploy</a></li>
+          <li><a href="#plugins" data-section="plugins" title="Browse Plugins"><i class="fas fa-puzzle-piece"></i> Plugins</a></li>
+          <li><a href="#support" data-section="support" title="Get Support"><i class="fas fa-headset"></i> Support</a></li>
+          <li><a href="https://github.com/CODEX-SPACEX/CODEX-AI/tree/main" target="_blank" rel="noreferrer" title="GitHub Repository"><i class="fab fa-github"></i> Repo</a></li>
+          <li><a href="#suggest" data-section="suggest" title="Suggest Features"><i class="fas fa-lightbulb"></i> Suggest</a></li>
+        </ul>
+
+        <div class="sidebar-snow"></div>
+
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </button>
+
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <span class="theme-icon" id="themeIcon">🌙</span>
+        </button>
+      </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">CODEX AI</h1>
-            <p class="hero-tagline">Empowering the Future with Intelligent Bot Solutions</p>
-            <button class="cta-button" onclick="document.getElementById('deploy-modal').classList.add('active')">Get Started</button>
+    <div class="nav-overlay"></div>
+
+    <main class="main-content">
+      <!-- Homepage -->
+      <section id="home" class="section active">
+        <div class="hero-section">
+          <div class="hero-copy">
+            <h1>CODEX AI</h1>
+            <p class="tagline">MULTIFUNCTIONAL WHATSAPP BOT BUILT WITH BAILEY'S</p>
+          </div>
         </div>
-        <div class="hero-glow"></div>
-    </section>
 
-    <!-- Content Boxes Section -->
-    <section class="features">
-        <h2 class="section-title">Our Features</h2>
-        <div class="features-grid">
-            <!-- Deploy Box -->
-            <div class="feature-box" onclick="document.getElementById('deploy-modal').classList.add('active')">
-                <div class="feature-icon">🚀</div>
-                <h3 class="feature-title">Deploy</h3>
-                <p class="feature-description">Seamlessly deploy your bots to production with a single click. Full integration with multiple platforms.</p>
-                <span class="feature-link">Learn More →</span>
-            </div>
-
-            <!-- Plugin Box -->
-            <div class="feature-box" onclick="document.getElementById('plugin-modal').classList.add('active')">
-                <div class="feature-icon">🔌</div>
-                <h3 class="feature-title">Plugin</h3>
-                <p class="feature-description">Extend functionality with our extensive plugin ecosystem. Build, share, and monetize custom plugins.</p>
-                <span class="feature-link">Learn More →</span>
-            </div>
-
-            <!-- Suggest Box -->
-            <div class="feature-box" onclick="document.getElementById('suggest-modal').classList.add('active')">
-                <div class="feature-icon">💡</div>
-                <h3 class="feature-title">Suggest</h3>
-                <p class="feature-description">Share your ideas and suggestions to help us improve CODEX AI. Your feedback shapes our roadmap.</p>
-                <span class="feature-link">Learn More →</span>
-            </div>
-
-            <!-- Repo Box -->
-            <div class="feature-box" onclick="document.getElementById('repo-modal').classList.add('active')">
-                <div class="feature-icon">📦</div>
-                <h3 class="feature-title">Repository</h3>
-                <p class="feature-description">Access our comprehensive repository of open-source tools, libraries, and resources for bot development.</p>
-                <span class="feature-link">Learn More →</span>
-            </div>
+        <div class="description-section">
+          <p></p>
         </div>
-    </section>
 
-    <!-- Deploy Modal -->
-    <div class="modal" id="deploy-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Deploy Your Bot</h2>
-            <div class="modal-body">
-                <h3>Deployment Videos</h3>
-                <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Bot Deployment Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                
-                <h3 style="margin-top: 30px;">Deploy your intelligent bots to production effortlessly:</h3>
-                <ul>
-                    <li><strong>Multi-Platform Support:</strong> Deploy to Telegram, WhatsApp, Discord, Slack, and more</li>
-                    <li><strong>One-Click Deployment:</strong> Simple CI/CD pipeline integration</li>
-                    <li><strong>Auto-Scaling:</strong> Handle traffic spikes automatically</li>
-                    <li><strong>Real-Time Monitoring:</strong> Track performance, errors, and user interactions</li>
-                    <li><strong>Version Control:</strong> Manage multiple versions of your bot</li>
-                    <li><strong>Zero Downtime:</strong> Update your bots without interrupting service</li>
-                </ul>
-                <div class="modal-action">
-                    <button class="btn-primary" onclick="window.open('https://youtube.com', '_blank')">View More Videos</button>
-                </div>
-            </div>
+        <div class="cards-section">
+          <div class="card" id="deploy" data-section="deploy">
+            <div class="card-icon"><i class="fas fa-rocket"></i></div>
+            <h3>Deploy</h3>
+            <p>Launch your AI models with enterprise-grade infrastructure</p>
+          </div>
+          <div class="card" id="plugins" data-section="plugins">
+            <div class="card-icon"><i class="fas fa-puzzle-piece"></i></div>
+            <h3>Plugins</h3>
+            <p>Extend capabilities with powerful integrations</p>
+          </div>
+          <div class="card" id="support" data-section="support">
+            <div class="card-icon"><i class="fas fa-headset"></i></div>
+            <h3>Support</h3>
+            <p>24/7 community support and assistance</p>
+          </div>
+          <div class="card" data-section="tools">
+            <div class="card-icon"><i class="fas fa-wrench"></i></div>
+            <h3>Tools</h3>
+            <p>Explore developer tools and automation helpers for faster workflows</p>
+          </div>
+          <div class="card" data-section="apis">
+            <div class="card-icon"><i class="fas fa-network-wired"></i></div>
+            <h3>APIs</h3>
+            <p>View API integrations, endpoints, and docs for connected services</p>
+          </div>
+          <div class="card" data-section="repo">
+            <div class="card-icon"><i class="fab fa-github"></i></div>
+            <h3>Repository</h3>
+            <p>Access source code and documentation</p>
+          </div>
         </div>
+      </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="modal-overlay" class="modal-overlay">
+      <div class="modal-content">
+        <button class="modal-close-btn" aria-label="Close modal">&times;</button>
+        <div id="modal-body"></div>
+      </div>
     </div>
 
-    <!-- Plugin Modal -->
-    <div class="modal" id="plugin-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Plugin Ecosystem</h2>
-            <div class="modal-body">
-                <p>Expand your bot's capabilities with our powerful plugin system:</p>
-                <ul>
-                    <li><strong>Plugin Marketplace:</strong> Browse thousands of community-created plugins</li>
-                    <li><strong>Easy Integration:</strong> Add plugins with just a few lines of code</li>
-                    <li><strong>Custom Development:</strong> Create and publish your own plugins</li>
-                    <li><strong>Monetization:</strong> Earn revenue by selling premium plugins</li>
-                    <li><strong>Auto-Updates:</strong> Plugins update automatically with new features</li>
-                    <li><strong>Community Support:</strong> Get help from thousands of developers</li>
-                </ul>
-                <div class="modal-action">
-                    <button class="btn-primary" onclick="window.open('https://github.com', '_blank')">Browse Plugins</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Suggest Modal -->
-    <div class="modal" id="suggest-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Suggest a Feature</h2>
-            <div class="modal-body">
-                <p>Help us improve CODEX AI by sharing your ideas:</p>
-                <form class="suggestion-form">
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="your@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="title">Feature Title</label>
-                        <input type="text" id="title" placeholder="What feature would you like?" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea id="description" rows="5" placeholder="Describe your feature idea in detail..." required></textarea>
-                    </div>
-                    <div class="modal-action">
-                        <button type="submit" class="btn-primary" onclick="event.preventDefault(); alert('Thank you for your suggestion!')">Submit Suggestion</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Repository Modal -->
-    <div class="modal" id="repo-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Open Source Repository</h2>
-            <div class="modal-body">
-                <p>Access our comprehensive open-source resources:</p>
-                <ul>
-                    <li><strong>Core Libraries:</strong> SDKs for Python, JavaScript, Go, and Java</li>
-                    <li><strong>Example Bots:</strong> Full-featured bot templates and starter kits</li>
-                    <li><strong>Documentation:</strong> Comprehensive guides and API references</li>
-                    <li><strong>Community Projects:</strong> Explore bots built by our community</li>
-                    <li><strong>Contributing Guidelines:</strong> Contribute code and help improve CODEX AI</li>
-                    <li><strong>Issues & PRs:</strong> Report bugs and submit feature requests</li>
-                </ul>
-                <div class="modal-action">
-                    <button class="btn-primary" onclick="window.open('https://github.com', '_blank')">Visit GitHub</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Privacy Policy Modal -->
-    <div class="modal" id="privacy-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Privacy Policy</h2>
-            <div class="modal-body">
-                <h3>Data Protection</h3>
-                <p>We are committed to protecting your personal data and ensuring your privacy rights. Our platform uses end-to-end encryption for all data transmission.</p>
-                
-                <h3>Information We Collect</h3>
-                <p>We collect only essential information needed to provide our services, including account information, usage statistics, and bot interaction logs.</p>
-                
-                <h3>Your Rights</h3>
-                <p>You have the right to access, modify, or delete your personal data at any time. We comply with GDPR, CCPA, and other data protection regulations.</p>
-                
-                <h3>Third-Party Services</h3>
-                <p>We do not share your data with third parties without your explicit consent, except where required by law.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Terms of Service Modal -->
-    <div class="modal" id="terms-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Terms of Service</h2>
-            <div class="modal-body">
-                <h3>Acceptance of Terms</h3>
-                <p>By accessing and using CODEX AI, you accept and agree to be bound by the terms and provision of this agreement.</p>
-                
-                <h3>User Responsibilities</h3>
-                <p>Users are responsible for maintaining the confidentiality of their account information and passwords. You agree not to use the platform for illegal or harmful purposes.</p>
-                
-                <h3>Intellectual Property</h3>
-                <p>All content, features, and functionality are owned by CODEX AI, its licensors, or other providers of such material and are protected by international copyright laws.</p>
-                
-                <h3>Limitation of Liability</h3>
-                <p>CODEX AI shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the service.</p>
-                
-                <h3>Termination</h3>
-                <p>We may terminate your account at any time for violation of these terms or for any reason without prior notice.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- License Modal -->
-    <div class="modal" id="license-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>License</h2>
-            <div class="modal-body">
-                <h3>MIT License</h3>
-                <p>Copyright (c) 2026 CODEX AI</p>
-                
-                <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.</p>
-                
-                <h3>Terms</h3>
-                <ul>
-                    <li>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</li>
-                    <li>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.</li>
-                    <li>IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY.</li>
-                </ul>
-                
-                <p><strong>Full License: </strong><a href="https://opensource.org/licenses/MIT" target="_blank">https://opensource.org/licenses/MIT</a></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Support Modal -->
-    <div class="modal" id="support-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Support & Community</h2>
-            <div class="modal-body">
-                <p>Connect with us and get support through multiple channels:</p>
-                <div class="support-channels">
-                    <h3>WhatsApp</h3>
-                    <div class="channel-links">
-                        <a href="https://chat.whatsapp.com" target="_blank" class="support-link">📱 WhatsApp Group</a>
-                        <a href="https://whatsapp.com/channel" target="_blank" class="support-link">📢 WhatsApp Channel</a>
-                    </div>
-                    
-                    <h3>Telegram</h3>
-                    <div class="channel-links">
-                        <a href="https://t.me" target="_blank" class="support-link">💬 Telegram Group</a>
-                        <a href="https://t.me/s" target="_blank" class="support-link">📡 Telegram Channel</a>
-                    </div>
-                    
-                    <h3>Other</h3>
-                    <div class="channel-links">
-                        <a href="mailto:support@codexai.com" class="support-link">📧 Email Support</a>
-                        <a href="https://github.com/codexai" target="_blank" class="support-link">🐙 GitHub Issues</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <p>&copy; 2026, All rights reserved. CODEX AI</p>
-                </div>
-                <div class="footer-right">
-                    <a href="#" onclick="document.getElementById('privacy-modal').classList.add('active'); return false;">Privacy Policy</a>
-                    <span class="separator">•</span>
-                    <a href="#" onclick="document.getElementById('terms-modal').classList.add('active'); return false;">Terms of Service</a>
-                    <span class="separator">•</span>
-                    <a href="#" onclick="document.getElementById('license-modal').classList.add('active'); return false;">License</a>
-                </div>
-            </div>
-        </div>
+    <footer class="site-footer">
+      <div class="footer-links">
+        <a href="#" data-section="privacy">Privacy Policy</a>
+        <a href="#" data-section="license">License</a>
+        <a href="#" data-section="terms">Terms of Service</a>
+      </div>
+      <p class="footer-copy">© 2026 All Rights Reserved</p>
     </footer>
+  </div>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
