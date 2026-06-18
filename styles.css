@@ -46,6 +46,7 @@ body.light {
 button,
 a {
   font: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .page-shell {
@@ -244,7 +245,6 @@ button,
 .hamburger,
 input,
 textarea {
-  -webkit-tap-highlight-color: transparent;
   outline: none;
 }
 
@@ -531,12 +531,18 @@ body.light .hamburger.open:hover {
   background: linear-gradient(135deg, var(--accent-soft), transparent);
   opacity: 0;
   transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 .card:hover {
   transform: translateY(-12px);
   border-color: var(--accent);
   box-shadow: 0 40px 120px rgba(3, 9, 30, 0.9);
+}
+
+.card:active {
+  transform: translateY(-4px);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .card:hover::before {
